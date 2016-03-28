@@ -1,0 +1,107 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hakanyildiz.co.assingment3.fragments.AddWordFragment">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- TODO: Update blank fragment layout -->
+
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="ADD WORD FRAGMENT"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:textSize="20dp"/>
+
+
+
+                <LinearLayout
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Turkish Word: "/>
+
+                    <EditText
+                        android:id="@+id/etTurkishWord"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="English Word: "/>
+
+                    <EditText
+                        android:id="@+id/etEnglishWord"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </LinearLayout>
+
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SAVE"
+                    android:id="@+id/btnSaveInAddFragment"
+                    android:textSize="15dp"
+                    />
+
+
+
+
+            <TextView
+                android:textColor="#1f3594"
+                android:padding="10dp"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Words In Database"
+                />
+            <ListView
+                android:id="@+id/listViewAddFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+            <TextView
+                android:visibility="invisible"
+                android:textSize="20dp"
+                android:paddingTop="50dp"
+                android:id="@+id/tvStatusListView"
+                android:text="There is no Words in Database"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+        </LinearLayout>
+
+
+
+
+
+</FrameLayout>
