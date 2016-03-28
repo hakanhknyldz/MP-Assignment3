@@ -1,50 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_updatedialog_staus"
-        android:textColor="@color/blue"
-        android:textSize="15dp"
-        android:text="Current Turkish Word: .... , English Meaning: ... "
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:text="Current Turkish Word: .... , English Meaning: ... "
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
+
         <TextView
-            android:textColor="@color/red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Turkish Word:"/>
+            android:text="Turkish Word:"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/etNewTurkishWord"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
+
         <TextView
-            android:textColor="@color/red"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:text="English Word:"/>
+            android:text="English Word:"
+            android:textColor="@color/red"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/etNewEnglishWord"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_update_dialog"
-        android:textSize="15dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#FFFFFF"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Word"/>
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:paddingTop="10dp">
+
+        <Button
+            android:id="@+id/btnUpdate_updatedialog"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="UPDATE"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/btnClose_updatedialog"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:text="CLOSE"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+    </LinearLayout>
 </LinearLayout>

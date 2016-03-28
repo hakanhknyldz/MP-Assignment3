@@ -32,7 +32,7 @@ import hakanyildiz.co.assingment3.R;
  * Use the {@link UpdateWordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpdateWordFragment extends Fragment{
+public class UpdateWordFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -86,23 +86,21 @@ public class UpdateWordFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_update_word, container, false);
         databaseHelper = new DatabaseHelper(getActivity());
         setup(view, getActivity());
-        
-        
-        return view; 
+
+
+        return view;
     }
 
     private void setup(final View view, Context context) {
-        llInfo = (LinearLayout) view.findViewById(R.id.llInfo);
-        llListView = (LinearLayout) view.findViewById(R.id.llListView);
+
         final ListView listView = (ListView) view.findViewById(R.id.listViewUpdateFragment);
         listView.setAdapter(adapter);
 
         adapter = databaseHelper.getAllDictionaries(context);
 
-        if(adapter != null) //kayitli veri var demektir.
+        if (adapter != null) //kayitli veri var demektir.
         {
-            llListView.setVisibility(View.VISIBLE);
-            llInfo.setVisibility(View.INVISIBLE);
+
             listView.setAdapter(adapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,61 +109,73 @@ public class UpdateWordFragment extends Fragment{
                     Toast.makeText(getActivity(), "CLicked : " + selectedFromList, Toast.LENGTH_LONG).show();
                     Log.d("HAKKE", "UpdateWordFrag => selectedItemName " + selectedFromList);
 
-                    setupDialog(selectedFromList,view);
+                    setupDialog(selectedFromList, view, listView);
                 }
             });
 
 
-        }
-        else //database de veri olmadıgını gösteren bir editText göster.
+        } else //database de veri olmadıgını gösteren bir editText göster.
         {
-            llInfo.setVisibility(View.VISIBLE);
-            llListView.setVisibility(View.INVISIBLE);
+
         }
 
 
     }
 
-    private void setupDialog(String selectedFromList,View view)
-    {
-        String[] arr = selectedFromList.replaceAll("\\s+"," ").split(" ");
+    private void setupDialog(String selectedFromList, View view, final ListView listView) {
+        String[] arr = selectedFromList.replaceAll("\\s+", " ").split(" ");
         CurrentID = Integer.parseInt(arr[0]);
         String oldTurk = arr[1];
         String oldEnglish = arr[2];
 
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.update_dialog);
-        dialog.setTitle("Update Word");
-        dialog.show();
+        dialog.setTitle("Do you want to update it?");
 
-        Button btnUpdate = (Button) view.findViewById(R.id.btn_update_dialog);
-        TextView tvStatus = (TextView) view.findViewById(R.id.tv_updatedialog_staus);
-        EditText etNewTurk = (EditText) view.findViewById(R.id.etNewTurkishWord);
-        EditText etNewEnglish = (EditText) view.findViewById(R.id.etNewTurkishWord);
+        Button btnCLose = (Button) dialog.findViewById(R.id.btnClose_updatedialog);
+        btnCLose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        Button btnUpdate = (Button) dialog.findViewById(R.id.btnUpdate_updatedialog);
+        final TextView tvStatus = (TextView) dialog.findViewById(R.id.tv_updatedialog_staus);
+        final EditText etNewTurk = (EditText) dialog.findViewById(R.id.etNewTurkishWord);
+        final EditText etNewEnglish = (EditText) dialog.findViewById(R.id.etNewEnglishWord);
 
 
-//        tvStatus.setText("Currenct Turkish Word: " + oldTurk + " , English Meaning: " + oldEnglish);
+        tvStatus.setText("Current Turkish Word: " + oldTurk + " , English Meaning: " + oldEnglish);
 
-        final String newTurk = etNewTurk.getText().toString();
-        final String newEnglish = etNewEnglish.getText().toString();
+        String newTurk = "";
+        String newEnglish = "";
 
-        if(newTurk.length() == 0 || newEnglish.length() == 0)
-        {
-            //do nothing!
-        }
-        else
-        {
-            btnUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean valid = databaseHelper.updateDictionary(newTurk,newEnglish,CurrentID);
-                    if(valid)
-                    {
-                        Toast.makeText(getActivity(),"Update is successfully",Toast.LENGTH_SHORT).show();
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("HAKKE","updatefragment => newTurk:" + etNewTurk.getText().toString() + " , newEnglish:" + etNewEnglish.getText().toString());
+
+                if (etNewTurk.getText().toString().length() == 0 || etNewEnglish.getText().toString().length() == 0) {
+                    tvStatus.append(" PLEASE, FILL THE TEXT ");
+                    //do nothing!
+                } else {
+                    boolean valid = databaseHelper.updateDictionary(etNewTurk.getText().toString().toLowerCase(), etNewEnglish.getText().toString().toLowerCase(), CurrentID);
+                    if (valid) {
+                        Toast.makeText(getActivity(), "Update is successfully", Toast.LENGTH_SHORT).show();
+                        adapter = databaseHelper.getAllDictionaries(getActivity());
+                        listView.setAdapter(adapter);
+                        dialog.dismiss();
                     }
                 }
-            });
-        }
+
+            }
+        });
+
+
+
+        dialog.show();
 
     }
 
@@ -175,7 +185,6 @@ public class UpdateWordFragment extends Fragment{
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
 
     @Override

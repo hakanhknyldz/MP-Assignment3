@@ -1,7 +1,9 @@
 package hakanyildiz.co.assingment3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,15 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import hakanyildiz.co.assingment3.MyClasses.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnSwitch, btnConfig;
+    Button btnSwitch, btnConfig,btnLogout;
+    TextView tvWelcome;
     ImageButton btnSearch;
     String searchType = "englishToTurkish";
     EditText arananKelime, cikanKelime;
     DatabaseHelper databaseHelper;
+    SharedPreferences preferences; //preferences nesne referansı
+    SharedPreferences.Editor editor; //preferences editor nesnesi referansı .prefernces nesnesine veri ekleyip cıkarmak için
     public static final String TAG = "HAKKE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +34,36 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());//preferences nesnesi oluşturuluyor ve prefernces referansına bağlanıyor
         databaseHelper = new DatabaseHelper(this);
+        tvWelcome = (TextView) findViewById(R.id.tv_welcome);
         btnSearch = (ImageButton) findViewById(R.id.btnSearch);
         btnSwitch = (Button) findViewById(R.id.btnSwitch);
         btnConfig = (Button) findViewById(R.id.btnConfig);
         arananKelime = (EditText) findViewById(R.id.arananKelime);
         cikanKelime = (EditText) findViewById(R.id.cikanKelime);
-
+        btnLogout = (Button) findViewById(R.id.btnLogout);
         setup();
 
 
     }
 
     private void setup() {
+        String message = "";
+        message = preferences.getString("email","deneme@example.com");
+
+        tvWelcome.setText("Welcome, " + message + "");
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor = preferences.edit();
+                editor.putBoolean("login",false);
+                editor.commit();
+
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+        });
 
         btnConfig.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void searchWord(String prefix) {
-        if (arananKelime.getText().toString().length() > 3) { // 3 = prefix length e.g. "tr-"
+        if (arananKelime.getText().toString().length() > 0) {
             String aranan = arananKelime.getText().toString();
 
             aranan = prefix + aranan; // exp : word = "hakan" olsun ... prefix koyunca

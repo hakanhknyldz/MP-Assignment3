@@ -98,8 +98,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("turkishWord" , dictionary.getTurkishWord());
-        values.put("englishWord", dictionary.getEnglishWord());
+        values.put("turkishWord" , dictionary.getTurkishWord().toLowerCase());
+        values.put("englishWord", dictionary.getEnglishWord().toLowerCase());
 
         long id = db.insert(TABLE_DICTIONARY,null,values);
         if(id > 0)
@@ -206,7 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             query += " where englishWord = ?";
             resultWordType = "turkishWord";
         }
-        cursor = db.rawQuery(query, new String[]{type[1]});
+        cursor = db.rawQuery(query, new String[]{type[1].toLowerCase()});
 
         Log.d(TAG, "findWord => query " + query);
         Log.d(TAG, "findWord => type[1] " + type[1]);

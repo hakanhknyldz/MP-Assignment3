@@ -14,44 +14,31 @@
             android:textStyle="bold"
             android:textSize="20dp"/>
 
-        <TextView
-            android:textColor="@color/red"
-            android:textSize="15dp"
-            android:gravity="center"
-            android:paddingTop="20dp"
-
-            android:text="If you want to update word, Click it!"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+        <!-- llListView -->
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/llListView"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:textColor="@color/red"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:paddingTop="20dp"
+
+                android:text="If you want to update word, Click it!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
 
             <ListView
                 android:id="@+id/listViewUpdateFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></ListView>
 
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/llInfo"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:textSize="20dp"
-                android:paddingTop="10dp"
-                android:id="@+id/tvStatusListView"
-                android:text="There are no Words in Database"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
 

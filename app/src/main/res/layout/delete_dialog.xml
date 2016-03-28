@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_deletingItemName"
+        android:padding="15dp"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deleting Item Name"/>
+
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingLeft="40dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:textColor="@color/white"
+            android:background="@color/red"
+            android:layout_width="150dp"
+            android:id="@+id/btnDelete_dialog"
+            android:layout_height="wrap_content"
+            android:text="DELETE"/>
+        <Button
+            android:textColor="@color/white"
+            android:background="@color/blue"
+            android:layout_width="150dp"
+            android:id="@+id/btnClose_dialog"
+            android:layout_height="wrap_content"
+            android:text="CLOSE"/>
+    </LinearLayout>
+</LinearLayout>

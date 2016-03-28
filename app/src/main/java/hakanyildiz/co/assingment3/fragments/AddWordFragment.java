@@ -141,9 +141,29 @@ public class AddWordFragment extends Fragment {
             etTurk.setError(null);
         }
 
+        if(turkceKelime.split(" ").length > 1)
+        {
+            etTurk.setError("Please, enter only ONE WORD :/");
+            valid = false;
+        }
+        else
+        {
+            etTurk.setError(null);
+        }
+
+        if(inglizceKelime.split(" ").length > 1)
+        {
+            etEnglish.setError("Please, enter only ONE WORD :/");
+            valid = false;
+        }
+        else
+        {
+            etEnglish.setError(null);
+        }
+
         if(inglizceKelime.isEmpty())
         {
-            etEnglish.setError("Pleasei enter the English meaning of Turkish Word");
+            etEnglish.setError("Please enter the English meaning of Turkish Word");
             valid = false;
         }
         else

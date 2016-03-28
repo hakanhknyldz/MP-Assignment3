@@ -1,16 +1,21 @@
 package hakanyildiz.co.assingment3.fragments;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import hakanyildiz.co.assingment3.MyClasses.DatabaseHelper;
 import hakanyildiz.co.assingment3.R;
@@ -98,6 +103,50 @@ public class DeleteWordFragment extends Fragment {
             llListView.setVisibility(View.VISIBLE);
             llInfo.setVisibility(View.INVISIBLE);
             listView.setAdapter(adapter);
+
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
+                    String selectedFromList = (String) (listView.getItemAtPosition(myItemInt));
+                    Toast.makeText(getActivity(), "CLicked For Delete : " + selectedFromList, Toast.LENGTH_LONG).show();
+                    Log.d("HAKKE", "DeleteWordFrag => selectedItemName " + selectedFromList);
+
+                    String[] arr = selectedFromList.replaceAll("\\s+"," ").split(" ");
+                    final int currentID = Integer.parseInt(arr[0]);
+                    String currentTUrk = arr[1];
+                    String currentEnglish = arr[2];
+
+                    final Dialog dialog = new Dialog(getActivity());
+                    dialog.setContentView(R.layout.delete_dialog);
+                    dialog.setTitle("Do you want to delete it?");
+
+                    TextView tvDeletedName = (TextView) dialog.findViewById(R.id.tv_deletingItemName);
+                     Button btnDelete = (Button) dialog.findViewById(R.id.btnDelete_dialog);
+                    Button btnClose = (Button) dialog.findViewById(R.id.btnClose_dialog);
+                    tvDeletedName.setText("You choose: " + currentTUrk);
+
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            boolean valid = databaseHelper.deleteDictionary(currentID);
+                            if(valid)
+                            {
+                                Toast.makeText(getActivity(),"Deleting is completed! :)",Toast.LENGTH_SHORT).show();
+                                adapter = databaseHelper.getAllDictionaries(getActivity());
+                                listView.setAdapter(adapter);
+                                dialog.dismiss();
+                            }
+                        }
+                    });
+                    btnClose.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
+            });
         }
         else //database de veri olmadıgını gösteren bir editText göster.
         {
